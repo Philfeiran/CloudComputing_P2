@@ -1,10 +1,10 @@
 
-from pyspark.mllib.classification import LogisticRegressionWithLBFGS, LogisticRegressionModel
+from pyspark.mllib.classification import LogisticRegressionWithLBFGS
 from pyspark.mllib.evaluation import MulticlassMetrics
 from pyspark.mllib.regression import LabeledPoint
 from pyspark.shell import sc
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, FloatType, ArrayType, IntegerType,DataType,StringType
+from pyspark.sql.types import StructType, StructField, IntegerType,StringType
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
     testdataframe = (spark.read
                  .format("csv")
                  .option('header', 'true')
-                 .load("ValidationDataset.csv", inferSchema='true', header=True, sep=";"))
+                 .load("TestDataset.csv", inferSchema='true', header=True, sep=";"))
     data=[]
 
     for row in dataframe.rdd.collect():
@@ -39,12 +39,12 @@ def main():
    ## testdataframe.show(1)
     data2=[]
     for row in testdataframe.rdd.collect():
-        feature = [row['"""fixed acidity""""'], row['""""volatile acidity""""'],
-                   row['""""citric acid""""'], row['""""residual sugar""""'],
-                   row['""""chlorides""""'], row['""""free sulfur dioxide""""'],
-                   row['""""total sulfur dioxide""""'], row['""""density""""'] ,
-                   row['""""pH""""'], row['""""sulphates""""'], row['""""alcohol""""']]
-        label = row['""""quality"""""']
+        feature = [row['"fixed acidity"'], row['"volatile acidity"'],
+                   row['"citric acid"'], row['"residual sugar"'],
+                   row['"chlorides"'], row['""free sulfur dioxide"'],
+                   row['"total sulfur dioxide"'], row['""density"'] ,
+                   row['""pH"'], row['"sulphates"'], row['"alcohol"']]
+        label = row['"quality"']
         data2.append([str(feature),label,model.predict(feature)])
 
     schema = StructType([
