@@ -41,9 +41,9 @@ def main():
     for row in testdataframe.rdd.collect():
         feature = [row['"fixed acidity"'], row['"volatile acidity"'],
                    row['"citric acid"'], row['"residual sugar"'],
-                   row['"chlorides"'], row['""free sulfur dioxide"'],
-                   row['"total sulfur dioxide"'], row['""density"'] ,
-                   row['""pH"'], row['"sulphates"'], row['"alcohol"']]
+                   row['"chlorides"'], row['"free sulfur dioxide"'],
+                   row['"total sulfur dioxide"'], row['"density"'] ,
+                   row['"pH"'], row['"sulphates"'], row['"alcohol"']]
         label = row['"quality"']
         data2.append([str(feature),label,model.predict(feature)])
 
